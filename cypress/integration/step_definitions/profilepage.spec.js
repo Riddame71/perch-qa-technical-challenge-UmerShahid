@@ -270,11 +270,11 @@ When('I click outside the name field', () => {
     cy.log('✅ STEP COMPLETED: Clicked outside name field successfully');
 });
 
-When('I click outside the email field', () => {
-    cy.log('📍 STEP: When I click outside the email field');
-    console.log('Step: Clicking outside email field');
+When('I click outside the profile email field', () => {
+    cy.log('📍 STEP: When I click outside the profile email field');
+    console.log('Step: Clicking outside profile email field');
     ProfilePage.clickOutsideEmailField();
-    cy.log('✅ STEP COMPLETED: Clicked outside email field successfully');
+    cy.log('✅ STEP COMPLETED: Clicked outside profile email field successfully');
 });
 
 // Value verification steps

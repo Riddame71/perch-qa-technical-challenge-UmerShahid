@@ -63,7 +63,7 @@ Feature: Profile Page Functionality
     When I click on the "Profile" button
     And I click on the "Edit Profile" button
     And I clear the email field
-    And I click outside the email field
+    And I click outside the profile email field
     Then I should see the error message "Please enter a valid email address"
     And the "Save Changes" button should be disabled
 
