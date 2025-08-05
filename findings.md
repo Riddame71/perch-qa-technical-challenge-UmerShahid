@@ -3,6 +3,10 @@
 ## Overview
 This document contains findings.
 
+
+---
+## NOTE
+THE 3 FAILED AUTOMATED TEST CASES ARE BASICALLY THE FIRST 3 BUGS YOU WILL FIND IN THIS FILE BELOW. SCRIPT ITSELF IS PERFECTLY FINE.
 ---
 
 ## 🐛 **Bugs Identified**
