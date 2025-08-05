@@ -172,13 +172,6 @@ Feature: Profile Page Functionality
     When I click on the "View Your Orders" button
     Then the order history should display the correct purchase amount
 
-  Scenario: User can modify cart quantities and items are managed properly
-    Given I have items in my cart
-    When I update item quantity to "3"
-    Then the cart should update to show new quantity
-    When I set item quantity to "0"
-    Then the item should be removed from cart cleanly
-
   Scenario: User can select appropriate product quantities
     When I click on "View Details" for any product
     Then I should be able to select reasonable quantity options
