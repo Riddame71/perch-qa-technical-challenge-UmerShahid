@@ -6,7 +6,7 @@ This document contains findings.
 
 ---
 ## NOTE
-THE 3 FAILED AUTOMATED TEST CASES ARE BASICALLY THE FIRST 3 BUGS YOU WILL FIND IN THIS FILE BELOW. SCRIPT ITSELF IS PERFECTLY FINE.
+THE 4 FAILED AUTOMATED TEST CASES ARE BASICALLY BUGS #1, #2, #3, #9 YOU WILL FIND IN THIS FILE BELOW. SCRIPT ITSELF IS PERFECTLY FINE.
 ---
 
 ## 🐛 **Bugs Identified**
@@ -165,6 +165,28 @@ PaymentPage also has the same quantity calculation bug as SuccessPage - order to
 
 #### **Actual Behavior**
 - Order total calculated as: sum of unit prices only, ignoring quantities
+
+---
+
+### **Bug #9: localStorage Key Mismatch Between Payment and Success Pages**
+
+#### **Description**
+PaymentPage stores cart data using 'cart' localStorage key, but SuccessPage attempts to retrieve cart data using 'shopping-cart' key, causing order data to be lost during checkout completion.
+
+#### **Steps to Reproduce**
+1. Add items to cart and proceed to payment
+2. Complete payment process (data stored in 'cart' key)
+3. Navigate to success page (looks for 'shopping-cart' key)
+4. Observe that cart data cannot be retrieved
+
+#### **Expected Behavior**
+- Consistent localStorage key usage across all pages
+- Cart data should be accessible on success page after payment
+
+#### **Actual Behavior**
+- PaymentPage stores cart data in localStorage key 'cart'
+- SuccessPage looks for cart data in localStorage key 'shopping-cart'
+- Cart data is not found, orders may not be properly saved
 
 ---
 
