@@ -1,0 +1,86 @@
+{
+  "products": {
+    "sneakers": {
+      "id": 1,
+      "name": "Classic White Sneakers",
+      "price": 79.99,
+      "description": "Comfortable and stylish white sneakers for everyday wear"
+    },
+    "watch": {
+      "id": 2,
+      "name": "Premium Leather Watch", 
+      "price": 149.99,
+      "description": "Elegant leather watch with premium craftsmanship"
+    },
+    "headphones": {
+      "id": 3,
+      "name": "Wireless Headphones",
+      "price": 199.99,
+      "description": "High-quality wireless headphones with noise cancellation"
+    }
+  },
+  "cartScenarios": {
+    "singleQuantity": {
+      "productId": 1,
+      "quantity": 1,
+      "expectedSubtotal": "$79.99"
+    },
+    "multipleQuantity": {
+      "productId": 1,
+      "quantity": 2,
+      "expectedSubtotal": "$159.98"
+    },
+    "highQuantity": {
+      "productId": 2,
+      "quantity": 3,
+      "expectedSubtotal": "$449.97"
+    },
+    "multipleProducts": {
+      "products": [
+        {"id": 1, "quantity": 2},
+        {"id": 3, "quantity": 1}
+      ],
+      "expectedSubtotal": "$359.97"
+    }
+  },
+  "deliveryAddress": {
+    "firstName": "QA Cart Test",
+    "email": "qa.cart@example.com",
+    "phone": "+92300111111",
+    "streetAddress": "QA Cart Street 456",
+    "city": "QA Cart City",
+    "state": "QA Cart State",
+    "zipCode": "54321",
+    "country": "QA Cart Country"
+  },
+  "paymentInfo": {
+    "cardHolderName": "QA Cart User",
+    "cardNumber": "4111111111111111",
+    "expiryDate": "11/26",
+    "cvv": "456"
+  },
+  "pageElements": {
+    "cartTitle": "Shopping Cart",
+    "emptyCartMessage": "Your cart is empty",
+    "continueShoppingButton": "Continue Shopping",
+    "proceedToCheckoutButton": "Proceed to Checkout",
+    "removeButton": "Remove",
+    "backToProductsButton": "Back to Products"
+  },
+  "validationScenarios": {
+    "quantityLimit": {
+      "message": "Quantity selector supports up to 5 items",
+      "maxQuantity": 5
+    },
+    "calculationExpectation": {
+      "description": "Cart total should reflect quantity multiplied by unit price",
+      "scenario": "Multiple items should show correct total calculation"
+    }
+  },
+  "navigationPaths": {
+    "homepageToCart": "/cart",
+    "cartToHomepage": "/",
+    "cartToCheckout": "/checkout/address",
+    "productToCart": "/cart"
+  }
+}

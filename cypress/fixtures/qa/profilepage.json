@@ -1,0 +1,49 @@
+{
+  "defaultProfile": {
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  },
+  "updateScenarios": {
+    "validName": "John Smithqa",
+    "validEmail": "john.smithqa@example.com"
+  },
+  "cancelScenarios": {
+    "testName": "Different Nameqa",
+    "testEmail": "differentqa@email.com"
+  },
+  "errorMessages": {
+    "nameRequired": "Name must be at least 3 characters and contain only letters",
+    "emailRequired": "Please enter a valid email address"
+  },
+  "pageElements": {
+    "pageTitle": "Your Profile",
+    "personalInfoSection": "Personal Information",
+    "orderHistorySection": "Order History",
+    "noOrdersText": "You haven't placed any orders yet."
+  },
+  "deliveryAddress": {
+    "firstName": "QA Test",
+    "email": "qa.test@example.com",
+    "phone": "+92300000000",
+    "streetAddress": "QA Test Street 123",
+    "city": "QA City",
+    "state": "QA State", 
+    "zipCode": "12345",
+    "country": "QA Country"
+  },
+  
+  "paymentInfo": {
+    "cardHolderName": "QA Test User",
+    "cardNumber": "4111111111111111",
+    "expiryDate": "12/25",
+    "cvv": "123"
+  },
+  
+  "expectedTexts": {
+    "orderConfirmation": "Thank You for Your Purchase!",
+    "orderNumber": "Order Number:",
+    "shoppingCart": "Shopping Cart",
+    "deliveryAddress": "Delivery Address",
+    "paymentInformation": "Payment Information"
+  }
+} 

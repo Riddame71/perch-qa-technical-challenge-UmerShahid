@@ -1,0 +1,90 @@
+{
+    "validAddressData": {
+      "firstName": "UAT John",
+      "email": "uat.john@example.com",
+      "phone": "1234567890",
+      "street": "UAT Main Street 123",
+      "city": "UAT City",
+      "state": "UAT State",
+      "zipCode": "12345",
+      "country": "UAT Country"
+    },
+    "validAddressDataAlternate": {
+      "firstName": "UAT Jane",
+      "email": "uat.jane@example.com",
+      "phone": "9876543210",
+      "street": "UAT Secondary Avenue 456",
+      "city": "UAT Town",
+      "state": "UAT Province",
+      "zipCode": "54321",
+      "country": "UAT Nation"
+    },
+    "invalidData": {
+      "email": {
+        "noAt": "testuser.com",
+        "noDomain": "test@",
+        "invalidFormat": "invalidemail"
+      },
+      "phone": {
+        "alphabetic": "abcdefghij",
+        "tooShort": "123456789",
+        "tooLong": "1234567890123456"
+      },
+      "zipCode": {
+        "alphabetic": "abcd",
+        "tooShort": "123",
+        "tooLong": "123456",
+        "specialChars": "12@#4"
+      },
+      "state": {
+        "numeric": "123456",
+        "specialChars": "State@#$",
+        "tooShort": "A"
+      },
+      "city": {
+        "numeric": "123456",
+        "specialChars": "City@#$",
+        "tooShort": "A"
+      },
+      "firstName": {
+        "numeric": "123456",
+        "tooShort": "A",
+        "tooLong": "ThisIsAVeryLongFirstNameThatExceedsThirtyCharacters"
+      },
+      "street": {
+        "tooShort": "123"
+      },
+      "country": {
+        "numeric": "123456",
+        "specialChars": "Country@#$"
+      }
+    },
+    "validEdgeCases": {
+      "zipCode4Digits": "1234",
+      "zipCode5Digits": "12345",
+      "phone10Digits": "1234567890",
+      "phone15Digits": "123456789012345",
+      "nameWithSpaces": "UAT John Doe"
+    },
+    "errorMessages": {
+      "required": "This field is required",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneInvalid": "Phone number must be 10-15 digits",
+      "zipCodeInvalid": "ZIP code must be 4 or 5 digits",
+      "stateInvalid": "State must contain only letters and spaces",
+      "cityInvalid": "City must contain only letters and spaces",
+      "firstNameInvalid": "Name must be 2-30 characters and contain only letters",
+      "streetInvalid": "Street address must be at least 5 characters",
+      "countryInvalid": "Country must contain only letters and spaces"
+    },
+    "pageElements": {
+      "pageTitle": "Delivery Address",
+      "backToCartText": "← Back to Cart",
+      "continueButtonText": "Continue to Payment"
+    },
+    "urls": {
+      "addressPage": "http://localhost:3000/checkout/address",
+      "paymentPage": "/checkout/payment",
+      "cartPage": "/cart"
+    }
+  }

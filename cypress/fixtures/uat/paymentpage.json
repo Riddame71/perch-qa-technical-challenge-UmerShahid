@@ -1,0 +1,42 @@
+{
+  "pageInfo": {
+    "title": "Payment Information",
+    "url": "/checkout/payment",
+    "testId": "payment-page"
+  },
+  "formElements": {
+    "cardHolderInput": "cardholder-input",
+    "cardNumberInput": "card-number-input",
+    "expiryInput": "expiry-input",
+    "cvvInput": "cvv-input",
+    "paymentForm": "payment-form",
+    "completePaymentButton": "complete-payment",
+    "backToAddressButton": "back-to-address"
+  },
+  "validPaymentData": {
+    "cardHolderName": "UAT Payment User",
+    "cardNumber": "4111111111111111",
+    "expiryDate": "11/27", 
+    "cvv": "789"
+  },
+  "navigationPaths": {
+    "directURL": "/checkout/payment",
+    "fromAddress": "/checkout/address",
+    "toSuccess": "/checkout/success"
+  },
+  "pageLabels": {
+    "mainTitle": "Payment Information",
+    "backButtonText": "← Back to Address",
+    "submitButtonText": "Place Order",
+    "processingText": "Processing..."
+  },
+  "validationMessages": {
+    "requiredField": "This field is required",
+    "html5ValidationTooltip": "Please fill out this field",
+    "fieldRequired": "This field is required",
+    "cardHolderInvalid": "Card holder name must be 2-50 characters and contain only letters",
+    "cardNumberInvalid": "Card number must be 16 digits",
+    "expiryDateInvalid": "Expiry date must be in MM/YY format",
+    "cvvInvalid": "CVV must be 3 or 4 digits"
+  }
+}
