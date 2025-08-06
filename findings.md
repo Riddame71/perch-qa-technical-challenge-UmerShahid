@@ -7,6 +7,12 @@ This document contains findings.
 ---
 ## NOTE
 THE 4 FAILED AUTOMATED TEST CASES ARE BASICALLY BUGS #1, #2, #3, #9 YOU WILL FIND IN THIS FILE BELOW. SCRIPT ITSELF IS PERFECTLY FINE.
+
+## FINDINGS SUMMARY
+- **9 Functional Bugs** (calculation errors, sorting logic, validation issues)
+- **6 Critical Broken Flows** (cart data loss, payment processing failures, navigation issues)
+- **8 UI/UX Anomalies** (visual inconsistencies, data display issues)
+- **1 UX Consideration** (quantity selector limitations)
 ---
 
 ## 🐛 **Bugs Identified**
@@ -187,6 +193,159 @@ PaymentPage stores cart data using 'cart' localStorage key, but SuccessPage atte
 - PaymentPage stores cart data in localStorage key 'cart'
 - SuccessPage looks for cart data in localStorage key 'shopping-cart'
 - Cart data is not found, orders may not be properly saved
+
+---
+
+## 🔗 **Broken Application Flows**
+
+### **Broken Flow #1: Cart Data Completely Lost on App Startup**
+
+#### **Description**
+The application clears all cart and shopping data every time it starts up, breaking the fundamental e-commerce user experience where cart should persist across sessions.
+
+#### **Location**
+- File: `src/App.js` lines 12-18
+
+#### **Steps to Reproduce**
+1. Add items to cart
+2. Refresh the browser page
+3. Check cart - all items are gone
+
+#### **Expected Behavior**
+- Cart should persist across browser sessions
+- Only clear cart after successful order completion
+
+#### **Actual Behavior**
+- App.js executes `localStorage.removeItem('cart')` on every startup
+- Users lose all shopping progress on page refresh
+- Completely breaks normal e-commerce shopping experience
+
+---
+
+### **Broken Flow #2: Payment Success Never Triggers Order Saving**
+
+#### **Description**
+PaymentPage completes payment processing but doesn't set the `paymentStatus` flag that SuccessPage requires to save orders, resulting in orders never being saved to order history.
+
+#### **Location**
+- PaymentPage: `src/pages/PaymentPage.js` lines 100-129
+- SuccessPage: `src/pages/SuccessPage.js` lines 9-32
+
+#### **Steps to Reproduce**
+1. Complete entire checkout flow
+2. Successfully submit payment
+3. Navigate to success page
+4. Check profile - no order in history
+
+#### **Expected Behavior**
+- Successful payment should save order to history
+- SuccessPage should display order confirmation
+
+#### **Actual Behavior**
+- PaymentPage doesn't set `localStorage.setItem('paymentStatus', 'success')`
+- SuccessPage checks for this flag before saving order
+- Order is never saved due to missing flag
+
+---
+
+### **Broken Flow #3: Double Order Creation Logic**
+
+#### **Description**
+Both PaymentPage and SuccessPage contain order creation logic, but they use different localStorage keys for cart data, potentially creating duplicate or missing orders.
+
+#### **Location**
+- PaymentPage: `src/pages/PaymentPage.js` lines 103-116 (uses 'cart' key)
+- SuccessPage: `src/pages/SuccessPage.js` lines 11-27 (uses 'shopping-cart' key)
+
+#### **Steps to Reproduce**
+1. Complete payment with items in cart
+2. Observe PaymentPage creates order using 'cart' data
+3. Navigate to SuccessPage 
+4. SuccessPage attempts to create order using 'shopping-cart' data
+
+#### **Expected Behavior**
+- Single, consistent order creation logic
+- Same localStorage key used throughout
+
+#### **Actual Behavior**
+- Two different order creation systems
+- Different localStorage keys cause data mismatch
+- Potential for duplicate or missing orders
+
+---
+
+### **Broken Flow #4: Direct Success Page Access Bypasses Order Saving**
+
+#### **Description**
+Users can navigate directly to `/checkout/success` URL without completing payment, and no order will be saved due to missing payment validation.
+
+#### **Location**
+- SuccessPage: `src/pages/SuccessPage.js` lines 14-32
+
+#### **Steps to Reproduce**
+1. Manually navigate to `http://localhost:3000/checkout/success`
+2. Page loads successfully
+3. No order is saved (no paymentStatus flag)
+4. User sees success message without completing purchase
+
+#### **Expected Behavior**
+- Success page should redirect to cart if no valid payment completed
+- Order saving should be guaranteed for legitimate purchases
+
+#### **Actual Behavior**
+- Success page accessible without payment completion
+- Shows success message even for invalid access
+- No order validation or saving occurs
+
+---
+
+### **Broken Flow #5: Product Not Found Error Provides No User Feedback**
+
+#### **Description**
+When users visit an invalid product URL, they're silently redirected to homepage without any explanation or error message.
+
+#### **Location**
+- ProductPage: `src/pages/ProductPage.js` lines 13-16
+
+#### **Steps to Reproduce**
+1. Navigate to invalid product URL like `/product/999`
+2. User is immediately redirected to homepage
+3. No error message or explanation provided
+
+#### **Expected Behavior**
+- Show "Product not found" error message
+- Provide navigation options (search, browse categories)
+- Clear user feedback about why redirect occurred
+
+#### **Actual Behavior**
+- Silent redirect to homepage
+- User has no idea why they were redirected
+- Confusing experience for users with bookmarked product links
+
+---
+
+### **Broken Flow #6: Inconsistent Checkout Route Navigation**
+
+#### **Description**
+The application has duplicate routes (`/checkout` and `/checkout/address`) both pointing to AddressPage, and different pages use different navigation paths, creating inconsistent user experience.
+
+#### **Location**
+- App.js: `src/App.js` lines 26-27 (duplicate routes)
+- CartPage: `src/pages/CartPage.js` line 39 (navigates to `/checkout/address`)
+
+#### **Steps to Reproduce**
+1. Navigate to `/checkout` - goes to AddressPage
+2. Navigate to `/checkout/address` - also goes to AddressPage
+3. Cart "Proceed to Checkout" uses `/checkout/address`
+
+#### **Expected Behavior**
+- Single, consistent checkout route
+- Clear route hierarchy for checkout process
+
+#### **Actual Behavior**
+- Two routes for same page
+- Inconsistent navigation patterns
+- Potential confusion in URL structure
 
 ---
 

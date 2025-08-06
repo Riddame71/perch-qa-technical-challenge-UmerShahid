@@ -5,7 +5,7 @@ Given('I have completed a purchase and am on the success page', () => {
     cy.log('📍 STEP: Setting up order completion scenario');
     console.log('Step: Preparing success page with order data');
     
-    // Set up cart data in localStorage to simulate completed order
+
     const testOrder = {
         items: [
             {
@@ -20,19 +20,18 @@ Given('I have completed a purchase and am on the success page', () => {
         total: 299.98 // Expected total: $149.99 * 2 = $299.98
     };
     
-    // Set up localStorage to simulate coming from payment
+
     cy.window().then((win) => {
-        // This will FAIL - Bug #5: localStorage key mismatch
-        // Success page looks for 'shopping-cart', but we'll set 'cart' to simulate the bug
+
         win.localStorage.setItem('shopping-cart', JSON.stringify(testOrder.items));
         win.localStorage.setItem('paymentStatus', 'success'); // This triggers order saving
         win.localStorage.setItem('lastOrder', JSON.stringify(testOrder));
     });
     
-    // Navigate directly to success page
+
     cy.visit('/checkout/success', {
         onBeforeLoad: (win) => {
-            // Simulate navigation state with order data
+
             win.history.replaceState({
                 orderNumber: testOrder.orderNumber,
                 total: testOrder.total
@@ -87,10 +86,7 @@ Then('I should see the order summary', () => {
 Then('the order total should match the actual purchase amount', () => {
     cy.log('📍 STEP: Verifying order total is calculated correctly in order history');
     console.log('Step: Order total should be calculated correctly (tested in order history)');
-    
-    // NOTE: Success page doesn't display total, but the calculation bug exists
-    // This test documents the expected behavior for when total IS displayed
-    // The actual bug will be caught in order history verification
+
     cy.log('📝 NOTE: Success page does not display order total');
     cy.log('💡 Order total calculation bug will be verified in order history');
     cy.log('✅ STEP COMPLETED: Order total calculation expectation documented');
@@ -100,8 +96,7 @@ Then('the total should include quantity calculations', () => {
     cy.log('📍 STEP: Verifying quantity-based total calculation expectation');
     console.log('Step: Documenting quantity calculation requirements');
     
-    // NOTE: This documents the business requirement that totals should include quantity
-    // The actual implementation bug is verified elsewhere
+
     cy.log('📝 NOTE: Order totals should multiply unit price by quantity');
     cy.log('💡 Current implementation has bug: ignores quantity in calculation');
     cy.log('✅ STEP COMPLETED: Quantity calculation requirement documented');
@@ -110,9 +105,7 @@ Then('the total should include quantity calculations', () => {
 Then('the order information should be properly retrieved', () => {
     cy.log('📍 STEP: Verifying order information retrieval');
     console.log('Step: Checking localStorage data access');
-    
-    // This will FAIL - Bug #5: localStorage key mismatch
-    // Site looks for 'shopping-cart' but we store in 'cart'
+
     SuccessPage.verifyOrderDataRetrieval();
     cy.log('✅ STEP COMPLETED: Order information retrieval verified');
 });
@@ -120,8 +113,7 @@ Then('the order information should be properly retrieved', () => {
 Then('cart data should be available for order display', () => {
     cy.log('📍 STEP: Verifying cart data availability');
     console.log('Step: Ensuring cart data is accessible');
-    
-    // Test both localStorage keys to show the inconsistency
+
     cy.window().then((win) => {
         const shoppingCartData = win.localStorage.getItem('shopping-cart');
         const cartData = win.localStorage.getItem('cart');
@@ -129,7 +121,6 @@ Then('cart data should be available for order display', () => {
         cy.log(`🔍 shopping-cart key: ${shoppingCartData ? 'found' : 'NOT FOUND'}`);
         cy.log(`🔍 cart key: ${cartData ? 'found' : 'NOT FOUND'}`);
         
-        // Success page expects 'shopping-cart' but PaymentPage stores in 'cart'
         expect(shoppingCartData).to.not.be.null;
     });
     cy.log('✅ STEP COMPLETED: Cart data availability verified');
@@ -177,7 +168,7 @@ Then('the page should load without errors', () => {
     
     cy.get('body').should('be.visible');
     cy.title().should('not.be.empty');
-    // Check for any error messages
+
     cy.get('body').should('not.contain', 'Error');
     cy.get('body').should('not.contain', 'Not Found');
     cy.log('✅ STEP COMPLETED: Page loaded without errors');
@@ -187,7 +178,7 @@ Then('appropriate order information should be displayed', () => {
     cy.log('📍 STEP: Verifying appropriate order information display');
     console.log('Step: Checking order information is shown');
     
-    // Even with direct access, some order info should be displayed
+
     cy.get('[data-testid="success-page"]').should('be.visible');
     cy.contains('Thank You').should('be.visible');
     cy.log('✅ STEP COMPLETED: Order information display verified');
@@ -206,7 +197,7 @@ Then('the order number should be properly formatted', () => {
     cy.log('📍 STEP: Verifying order number format');
     console.log('Step: Checking order number format');
     
-    // Order number format is #{6-digit-number}
+
     cy.get('[data-testid="order-number"]').invoke('text').should('match', /^#\d+$/);
     cy.log('✅ STEP COMPLETED: Order number format verified');
 });
@@ -215,7 +206,7 @@ Then('the order number should be unique', () => {
     cy.log('📍 STEP: Verifying order number uniqueness');
     console.log('Step: Checking order number is unique');
     
-    // Store the order number and verify it's different on subsequent orders
+
     cy.get('[data-testid="order-number"]').then(($orderNum) => {
         const orderNumber = $orderNum.text();
         expect(orderNumber).to.have.length.above(5);
@@ -224,7 +215,7 @@ Then('the order number should be unique', () => {
     cy.log('✅ STEP COMPLETED: Order number uniqueness verified');
 });
 
-// Scenario for cross-page data accessibility
+    
 Given('I have cart data stored with PaymentPage key format', () => {
     cy.log('📍 STEP: Setting up cart data from completed payment');
     console.log('Step: Simulating completed payment with cart data');
@@ -240,11 +231,11 @@ Given('I have cart data stored with PaymentPage key format', () => {
     ];
     
     cy.window().then((win) => {
-        // Simulate data storage as done by payment page
+
         win.localStorage.setItem('cart', JSON.stringify(testCartItems));
         win.localStorage.setItem('paymentStatus', 'success');
         
-        // Verify cart data is properly stored
+
         const storedData = win.localStorage.getItem('cart');
         expect(storedData).to.not.be.null;
         cy.log('✅ Cart data stored from payment completion');
@@ -266,13 +257,12 @@ Then('the success page should be able to retrieve cart data', () => {
     console.log('Step: Ensuring cart data retrieval works properly');
     
     cy.window().then((win) => {
-        // Success page should be able to access cart data stored by payment page
+
         const paymentPageData = win.localStorage.getItem('cart');
         const successPageData = win.localStorage.getItem('shopping-cart');
         
-        // This will FAIL - cart data should be accessible but isn't due to key mismatch
-        expect(paymentPageData).to.not.be.null; // PaymentPage data exists
-        expect(successPageData).to.not.be.null; // SuccessPage should find it
+        expect(paymentPageData).to.not.be.null; 
+        expect(successPageData).to.not.be.null; 
         
         cy.log(`🔍 PaymentPage data in 'cart': ${paymentPageData ? 'FOUND' : 'NOT FOUND'}`);
         cy.log(`🔍 SuccessPage data in 'shopping-cart': ${successPageData ? 'FOUND' : 'NOT FOUND'}`);
@@ -292,7 +282,7 @@ Then('order processing should work seamlessly across pages', () => {
     cy.log('✅ STEP COMPLETED: Order processing seamlessness requirements verified');
 });
 
-// Navigation scenarios
+
 Then('I should be navigated to the homepage', () => {
     cy.log('📍 STEP: Verifying navigation to homepage');
     console.log('Step: Checking homepage navigation');

@@ -236,7 +236,7 @@ When('I enter {string} in the name field', (nameType) => {
             nameValue = profileData.cancelScenarios.testName;
             break;
         default:
-            nameValue = nameType; // Use the string directly if not a predefined type
+            nameValue = nameType; 
     }
     
     ProfilePage.enterName(nameValue);
@@ -540,7 +540,6 @@ Then('the order history should display the correct purchase amount', () => {
     cy.log('📍 STEP: Verifying order history amount');
     console.log('Step: Checking order history shows correct total');
     
-    // This will FAIL due to multiple bugs in order calculation
     ProfilePage.verifyNavigationToProfilePage();
     cy.get('.order-total .value').should('contain.text', '$299.98');
     cy.log('✅ STEP COMPLETED: Order history amount verified');
@@ -558,8 +557,6 @@ Then('the quantity selector should accommodate typical purchase needs', () => {
     cy.log('📍 STEP: Verifying quantity range adequacy');
     console.log('Step: Checking if quantity range meets user needs');
     
-    // Verify quantity options are available (site currently provides 1-5)
-    // Note: May want to consider expanding range for bulk purchases
     cy.get('[data-testid="quantity-selector"] option').should('have.length', 5);
     cy.log('✅ STEP COMPLETED: Quantity range adequate for typical needs');
 });

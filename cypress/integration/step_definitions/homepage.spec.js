@@ -88,12 +88,11 @@ Then('I should be navigated to that product\'s detail page', () => {
     cy.log('✅ STEP COMPLETED: Navigation to product detail page verified successfully');
 });
 
-// Search step definitions with proper parameter storage and handling
+// Search step definitions
 When('I search for {string}', (searchTerm) => {
     cy.log(`📍 STEP: When I search for "${searchTerm}"`);
     console.log(`Step: Searching for product - ${searchTerm}`);
     
-    // Store the search term for use in subsequent steps with validation
     if (!searchTerm) {
         cy.log('⚠️ WARNING: searchTerm parameter is empty or undefined in search step');
         console.warn('Step: searchTerm parameter is empty or undefined in search step');
@@ -111,13 +110,11 @@ Then('I should see search results containing {string}', (searchTerm) => {
     cy.log(`📍 STEP: Then I should see search results containing "${searchTerm}"`);
     console.log(`Step: Verifying search results contain - ${searchTerm}`);
     
-    // Validation logging
     if (!searchTerm) {
         cy.log('⚠️ WARNING: searchTerm parameter is empty or undefined');
         console.warn('Step: searchTerm parameter is empty or undefined');
     }
     
-    // Check if products exist first before verifying search results
     cy.log('🔍 Checking if any products are displayed first');
     console.log('Step: Checking if any products are displayed before verifying search results');
     
@@ -141,11 +138,10 @@ Then('I should see products that match the search term', () => {
     cy.log('📍 STEP: Then I should see products that match the search term');
     console.log('Step: Verifying products match the search term');
     
-    // Use the stored search term with comprehensive validation and logging
+    // Use the stored search term 
     cy.log(`🔍 Using stored search term: "${currentSearchTerm}"`);
     console.log(`Step: Using stored search term: ${currentSearchTerm}`);
     
-    // Validation with detailed error logging
     if (!currentSearchTerm) {
         cy.log('❌ ERROR: No search term stored from previous search step');
         console.error('Step: No search term available - ensure "When I search for" step was executed first');
@@ -163,7 +159,6 @@ Then('I should see products that match the search term', () => {
     cy.log(`✅ Search term validation passed: "${currentSearchTerm}"`);
     console.log(`Step: Search term validation passed: ${currentSearchTerm}`);
     
-    // Call the method with the stored search term
     HomePage.verifyProductsMatchSearch(currentSearchTerm);
     cy.log(`✅ STEP COMPLETED: Products matching search term "${currentSearchTerm}" verified successfully`);
 });
@@ -194,7 +189,6 @@ Then('I should not see any product cards', () => {
     cy.log('✅ STEP COMPLETED: Confirmed no product cards are displayed');
 });
 
-// Add a new step specifically for verifying no search results (if needed)
 Then('I should see no search results for {string}', (searchTerm) => {
     cy.log(`📍 STEP: Then I should see no search results for "${searchTerm}"`);
     console.log(`Step: Verifying no search results for - ${searchTerm}`);
@@ -209,7 +203,7 @@ Then('I should see no search results for {string}', (searchTerm) => {
     cy.log(`✅ STEP COMPLETED: No search results verification for "${searchTerm}" completed successfully`);
 });
 
-// New price sorting step definitions with comprehensive logging
+// New price sorting step definitions
 Then('I should see products sorted by price in ascending order', () => {
     cy.log('📍 STEP: Then I should see products sorted by price in ascending order');
     console.log('Step: Verifying products are sorted by price in ascending order (low to high)');
@@ -350,7 +344,6 @@ When('I click on {string} for each product', (buttonText) => {
 Then('I should be navigated to each product\'s detail page', () => {
     cy.log('📍 STEP: Then I should be navigated to each product\'s detail page');
     console.log('Step: Verifying navigation to each product detail page');
-    // This verification happens within the clickViewDetailsForAllProducts method
     cy.log('ℹ️ Product detail page navigation verification is handled within the navigation flow');
     console.log('Step: Product detail page navigation verification is part of the flow');
     cy.log('✅ STEP COMPLETED: Each product detail page navigation verified');
@@ -359,7 +352,6 @@ Then('I should be navigated to each product\'s detail page', () => {
 Then('I should see each product detail page URL', () => {
     cy.log('📍 STEP: Then I should see each product detail page URL');
     console.log('Step: Verifying each product detail page URL');
-    // This verification happens within the clickViewDetailsForAllProducts method
     cy.log('ℹ️ Product detail page URL verification is handled within the navigation flow');
     console.log('Step: Product detail page URL verification is part of the flow');
     cy.log('✅ STEP COMPLETED: Each product detail page URL verified');
@@ -378,7 +370,6 @@ When('I click on {string} from each product detail page', (buttonText) => {
     if (buttonText.toLowerCase().includes('back to products')) {
         cy.log('🔍 Identified as Back to Products button clicks');
         console.log('Step: Back to Products navigation is handled within the product detail flow');
-        // This action happens within the clickViewDetailsForAllProducts method
         cy.log('ℹ️ Back to Products button clicks are handled within the navigation flow');
     } else {
         cy.log(`⚠️ WARNING: Unrecognized button text for detail page: "${buttonText}"`);
@@ -391,7 +382,6 @@ When('I click on {string} from each product detail page', (buttonText) => {
 Then('I should be navigated back to the homepage', () => {
     cy.log('📍 STEP: Then I should be navigated back to the homepage');
     console.log('Step: Verifying navigation back to homepage');
-    // This verification happens within the clickViewDetailsForAllProducts method
     cy.log('ℹ️ Homepage navigation verification is handled within the navigation flow');
     console.log('Step: Homepage navigation verification is part of the flow');
     cy.log('✅ STEP COMPLETED: Navigation back to homepage verified');

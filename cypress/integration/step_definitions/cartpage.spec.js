@@ -24,12 +24,7 @@ before(() => {
     }
 });
 
-// ========================================
-// CART-SPECIFIC STEP DEFINITIONS 
-// (Designed to avoid conflicts with existing homepage/profile tests)
-// ========================================
-
-// CART NAVIGATION STEPS (Unique to cart scenarios)
+// CART NAVIGATION STEPS 
 
 When('I click on the Cart button from homepage', () => {
     cy.log('📍 STEP: When I click on the Cart button from homepage');
@@ -42,7 +37,6 @@ When('I click the Continue Shopping button in empty cart', () => {
     cy.log('📍 STEP: When I click the Continue Shopping button in empty cart');
     console.log('Step: Clicking Continue Shopping in empty cart state');
     
-    // Target the Continue Shopping button specifically within the empty cart section
     cy.get('[data-testid="empty-cart"]').within(() => {
         cy.get('[data-testid="continue-shopping"]').click();
     });
@@ -54,7 +48,6 @@ When('I click the Continue Shopping button from cart header', () => {
     cy.log('📍 STEP: When I click the Continue Shopping button from cart header');
     console.log('Step: Clicking Continue Shopping from cart header');
     
-    // Target the Continue Shopping button in the cart header (when cart has items)
     cy.get('.cart-header').find('[data-testid="continue-shopping"]').click();
     
     cy.log('✅ STEP COMPLETED: Continue Shopping clicked from cart header');
@@ -111,7 +104,6 @@ When('I navigate to product details for {string}', (productName) => {
     cy.log(`📍 STEP: When I navigate to product details for "${productName}"`);
     console.log(`Step: Navigating to product details - ${productName}`);
     
-    // Use generic product card selection by name
     cy.contains('.product-card', productName).within(() => {
         cy.get('.view-details-button').click();
     });
@@ -123,7 +115,6 @@ When('I add the product to cart with default quantity', () => {
     cy.log('📍 STEP: When I add the product to cart with default quantity');
     console.log('Step: Adding product to cart with default quantity');
     
-    // Verify we're on product page and add to cart
     cy.url().should('include', '/product/');
     cy.get('[data-testid="add-to-cart"]').click();
     
@@ -177,7 +168,7 @@ When('I remove the first item from cart', () => {
     console.log('Step: Removing first item from cart');
     
     cy.get('[data-testid*="remove-"]').first().click();
-    cy.wait(500); // Wait for removal to process
+    cy.wait(500); 
     
     cy.log('✅ STEP COMPLETED: First item removed from cart');
 });
@@ -187,7 +178,7 @@ When('I update the first item quantity to {string}', (newQuantity) => {
     console.log(`Step: Updating first item quantity to ${newQuantity}`);
     
     cy.get('[data-testid*="quantity-"]').first().select(newQuantity);
-    cy.wait(500); // Wait for update to process
+    cy.wait(500); 
     
     cy.log(`✅ STEP COMPLETED: First item quantity updated to "${newQuantity}"`);
 });
@@ -213,7 +204,7 @@ Then('I should see multiple items in the cart', () => {
     cy.log('✅ STEP COMPLETED: Multiple items in cart verified');
 });
 
-// CHECKOUT FLOW STEPS (Reusing existing page object methods)
+// CHECKOUT FLOW STEPS 
 
 When('I proceed through checkout with cart data', () => {
     cy.log('📍 STEP: When I proceed through checkout with cart data');
@@ -245,14 +236,12 @@ Then('I should reach the order confirmation page', () => {
     cy.log('✅ STEP COMPLETED: Order confirmation page verified');
 });
 
-// CALCULATION VERIFICATION (For bug testing)
+// CALCULATION VERIFICATION 
 
 Then('the cart subtotal calculation should be correct for quantity {string}', (quantity) => {
     cy.log(`📍 STEP: Then the cart subtotal calculation should be correct for quantity "${quantity}"`);
     console.log(`Step: Verifying cart calculation for quantity ${quantity}`);
     
-    // This step will naturally expose calculation bugs
-    // For quantity 2 of $79.99 item, should show $159.98
     if (quantity === '2') {
         cy.get('[data-testid="subtotal"]').should('contain.text', '$159.98');
     }
@@ -264,7 +253,6 @@ Then('the quantity selector should show options up to {string}', (maxOption) => 
     cy.log(`📍 STEP: Then the quantity selector should show options up to "${maxOption}"`);
     console.log(`Step: Verifying quantity selector max option - ${maxOption}`);
     
-    // This will expose the limitation of only 5 options
     cy.get('[data-testid="quantity-selector"] option').last().should('have.value', maxOption);
     
     cy.log(`✅ STEP COMPLETED: Quantity selector max option "${maxOption}" verified`);
