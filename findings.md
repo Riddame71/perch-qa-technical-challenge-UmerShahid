@@ -17,7 +17,7 @@ THE 4 FAILED AUTOMATED TEST CASES ARE BASICALLY BUGS #1, #2, #3, #9 YOU WILL FIN
 
 ## 🐛 **Bugs Identified**
 
-### **Bug #1: Order Total Calculation Ignores Quantity in Order History**
+### **Bug #1: Order Total Calculation Ignores Quantity in Order History: Caught by Automation**
 
 
 #### **Description**
@@ -40,7 +40,7 @@ When users purchase multiple quantities of an item, the order total displayed in
 
 ---
 
-### **Bug #2: Price Sorting Shows Incorrect Initial Order**
+### **Bug #2: Price Sorting Shows Incorrect Initial Order: Caught by Automation**
 
 #### **Description**
 When users first visit the homepage, products are not sorted by price in ascending order as expected. The sorting uses string comparison instead of numeric comparison.
@@ -57,7 +57,7 @@ When users first visit the homepage, products are not sorted by price in ascendi
 
 ---
 
-### **Bug #3: Sort by Price Button Produces Wrong Order**
+### **Bug #3: Sort by Price Button Produces Wrong Order: Caught by Automation**
 
 #### **Description**
 When users click the "Sort by Price" button, products are not sorted correctly in descending order. The sorting logic treats prices as strings rather than numbers.
@@ -174,7 +174,7 @@ PaymentPage also has the same quantity calculation bug as SuccessPage - order to
 
 ---
 
-### **Bug #9: localStorage Key Mismatch Between Payment and Success Pages**
+### **Bug #9: localStorage Key Mismatch Between Payment and Success Pages: Caught by Automation**
 
 #### **Description**
 PaymentPage stores cart data using 'cart' localStorage key, but SuccessPage attempts to retrieve cart data using 'shopping-cart' key, causing order data to be lost during checkout completion.
